@@ -17,7 +17,7 @@ import { Button, Container, Grid, Input, Segment } from "semantic-ui-react";
 
 import "./WorkflowView.css";
 
-export const WorkflowView = ({ apiUrl }) => {
+export const WorkflowView = ({ apiUrl, apiKey }) => {
   // States
   const [userInput, setUserInput] = useState({});
   const [workflowData, setWorkflowData] = useState({});
@@ -35,12 +35,12 @@ export const WorkflowView = ({ apiUrl }) => {
 
   // Hooks
   useEffect(() => {
-    if (Object.keys(userInput).length === 3) {
+    if (Object.keys(userInput).length === 2) {
       // naive method (Just for fun) =)
 
       const instance = axios.create({
         headers: {
-          "x-api-key": userInput.accessToken,
+          "x-api-key": apiKey,
         },
       });
 
@@ -82,25 +82,18 @@ export const WorkflowView = ({ apiUrl }) => {
       <Segment>
         <Grid stackable padded centered>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={8}>
               <Input
                 fluid
                 placeholder={"Project Identifier"}
                 onChange={debouncedInputFncFactory("projectIdentifier")}
               />
             </Grid.Column>
-            <Grid.Column width={5}>
+            <Grid.Column width={8}>
               <Input
                 fluid
                 placeholder={"Workflow Identifier"}
                 onChange={debouncedInputFncFactory("workflowIdentifier")}
-              />
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Input
-                fluid
-                placeholder={"Access token"}
-                onChange={debouncedInputFncFactory("accessToken")}
               />
             </Grid.Column>
           </Grid.Row>
